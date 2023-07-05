@@ -1,3 +1,2 @@
 #!/bin/bash
-list=$(ls -1Ap --group-directories-first | sed ':a;N;$!ba;s/\n/, /g' | sed -E "s/$/,/g")
-echo "${list%,}" && echo
+printf "%s\n" . .. "$(ls -an | awk '{if($1~/^d/) print $NF"/"; else print $NF}' | LC_ALL=C sort -k1.1d,1 -k1.2n)" | paste -s -d,
