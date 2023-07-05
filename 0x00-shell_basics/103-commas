@@ -1,2 +1,2 @@
 #!/bin/bash
-printf "%s\n" . .. "$(ls -an  awk '{if($1~/^d/) print $NF"/" else print $NF}' LC_ALL=C sort -k1.1d,1 -k1.2n)"  paste -s -d,
+ls -1Ap | awk '{printf("%s%s", $0,(NR%2==0)?"\n":",")}
