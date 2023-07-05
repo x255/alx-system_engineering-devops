@@ -1,0 +1,5 @@
+#!/bin/bash
+echo '0 string SCHOOL School data file' > school.mgc
+echo 'SCHOOL This is a sample School data file.' > sample.school
+file -m school.mgc sample.school
+rm sample.school
