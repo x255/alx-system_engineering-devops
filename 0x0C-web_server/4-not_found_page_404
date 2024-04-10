@@ -1,26 +1,26 @@
 #!/usr/bin/env bash
-# sets up a new 404 error page
-sudo apt-get update
-sudo apt-get install -y nginx 
-echo "Hello World!" > index.html
-sudo mv index.html /var/www/html
+# Customizing the 404 page
 
+apt-get update
+apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
 
-echo "Ceci n'est pas une page" > 404.html
-sudo mv 404.html /var/www/html
-echo "server {
-   listen 80 default_server;
-   listen [::]:80 default_server;
-   
-   root /var/www/html;
-   index index.html;
-   location /redirect_me {
-      return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-   }
-   error_page 404 /404.html;
-   location = /404.html{
-      internal;
-   }
-}" > default
-sudo mv -f default /etc/nginx/sites-available/default
-sudo service nginx restart
+mkdir -p /var/www/html/
+sudo chmod -R 755 /var/www
+echo 'Hello World!' | sudo tee /var/www/html/index.html
+
+string_for_replacement="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/x2555 permanent;"
+
+sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/default
+
+#creating a 404 error page 
+
+echo "" | sudo tee /var/www/html/404.html
+
+string_for_replecement="listen 80 default_server;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\troot \/var/www/html;\n\t\tintenal;\n\t}"
+
+sudo sed -t "s/listen 80 default_server;/$string_for_replecement/" /etc/nginx/sites-enabled/default
+
+# resrart nginx after implementing changes
+
+sudo service mginx restart
