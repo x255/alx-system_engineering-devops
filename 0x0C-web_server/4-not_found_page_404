@@ -9,7 +9,7 @@ mkdir -p /var/www/html/
 sudo chmod -R 755 /var/www
 echo 'Hello World!' | sudo tee /var/www/html/index.html
 
-string_for_replacement="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/x2555 permanent;"
+string_for_replacement="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/x255 permanent;"
 
 sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/default
 
