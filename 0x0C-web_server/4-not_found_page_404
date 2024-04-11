@@ -23,4 +23,4 @@ sudo sed -i "s|listen 80 default_server;|$string_for_replacement|" /etc/nginx/si
 
 # resrart nginx after implementing changes
 
-sudo service mginx restart
+sudo service nginx restart
